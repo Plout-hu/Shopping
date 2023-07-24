@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.shopping.mapper.GoodsMapper">
+    <update id="update">
+        update shopping.goods
+        <set>
+            <if test="goodsName!=null and goodsName!=''">goods_name=#{goodsName},</if>
+            <if test="producer!=null and producer!=''">producer=#{producer},</if>
+            <if test="produceDate!=null">produce_date=#{produceDate},</if>
+            <if test="type!=null">type=#{type},</if>
+            <if test="buyingPrice!=null">buying_price=#{buyingPrice},</if>
+            <if test="price!=null">price=#{price},</if>
+            <if test="inventory!=null">inventory=#{inventory},</if>
+        </set>
+        where goods_id=#{goodsId}
+    </update>
+
+    <select id="list" resultType="com.study.shopping.pojo.Goods">
+        select *
+        from shopping.goods
+        <where>
+            <if test="goodsName!=null">goods_name like concat('%',#{goodsName},'%')</if>
+            <if test="producer!=null">and producer like concat('%',#{producer},'%')</if>
+            <if test="startPrice!=null and endPrice!=null">and price between #{startPrice} and #{endPrice}</if>
+            <if test="startProduceTime!=null and endProduceTime!=null">and produce_date between #{startProduceTime} and
+                #{endProduceTime}
+            </if>
+        </where>
+        order by produce_date
+        <if test="order==1">
+            desc
+        </if>
+    </select>
+    <delete id="delete">
+        delete
+        from shopping.goods
+        where goods_id in
+        <foreach collection="ids"   item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

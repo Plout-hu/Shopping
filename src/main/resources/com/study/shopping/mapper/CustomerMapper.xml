@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.shopping.mapper.CustomerMapper">
+
+    <select id="list" resultType="com.study.shopping.pojo.Customer">
+        select *
+        from shopping.customer
+        <where>
+            <if test="start!=null and end!=null">
+                register_time between #{start} and #{end}
+            </if>
+            <if test="id!=null">
+                and user_id=#{id}
+            </if>
+            <if test="name!=null">
+                and username like concat('%',#{name},'%')
+            </if>
+        </where>
+        order by register_time desc
+    </select>
+    <delete id="delete" >
+        delete from customer where user_id in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
