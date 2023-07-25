@@ -16,3 +16,4 @@
 3、修改密码
 
 ![image-20230725143802487](./ShoppingPages/shopping/src/assets/image-20230725143802487.png)
+![image](https://github.com/Plout-hu/Shopping/assets/96678139/dce7b51d-a1a7-4518-9b06-ef4535d63947)
