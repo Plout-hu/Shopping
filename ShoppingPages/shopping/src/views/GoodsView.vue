@@ -32,7 +32,7 @@
                     <el-button type="primary" @click="search" size="mini">查询</el-button>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="primary" size="mini" @click="addGoods">添加商品</el-button>
+                    <el-button type="primary" size="mini" @click="addGoods" v-if="power==1">添加商品</el-button>
                 </el-form-item>
             </el-form>
             <el-table :data="goods" border stripe @selection-change="handleSelectionChange">
