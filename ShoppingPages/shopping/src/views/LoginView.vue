@@ -314,7 +314,10 @@ export default {
 }
 
 .login_container {
-    background-color: #2b4b6b;
+    background-image: url('http://www.news.cn/local/2023-04/20/1129541562_16819611731871n.jpg');
+    background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
     height: 100%;
 }
 

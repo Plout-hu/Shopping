@@ -78,14 +78,27 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             }
         }
         LocalDateTime now = LocalDateTime.now();
-        List<Integer> list=new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        customerMapper.getById(customer.getUserId());
+        float cost = 0;
         for (ShoppingCart shoppingCart : shoppingCartList) {
 //            Goods goods = goodsMapper.getById(shoppingCart.getGoodsId());
             Order order = new Order(0, customer.getUserId(), shoppingCart.getGoodsId(), customer.getUsername(),
                     shoppingCart.getGoodsName(), shoppingCart.getGoodsPrice(), shoppingCart.getAmount(), now);
             orderMapper.add(order);
             list.add(shoppingCart.getId());
+            cost += shoppingCart.getAmount() * shoppingCart.getGoodsPrice();
         }
+        customer.setConsumptionAmount(customer.getConsumptionAmount() + cost);
+        int levle = 0;
+        if (customer.getConsumptionAmount() > 500 && customer.getConsumptionAmount() < 1000) {
+            levle = 1;
+        } else if (customer.getConsumptionAmount() > 1000) {
+            levle = 2;
+        }
+
+        customer.setUserLevel(levle);
+        customerMapper.update(customer);
         shoppingCartMapper.delete(list);
         return null;
     }

@@ -47,7 +47,7 @@
                 <span slot="title">购物车</span>
 
             </el-menu-item>
-            <el-menu-item index="/orderhistory" v-if="right == 0">
+            <el-menu-item index="/orderhistory">
 
                 <!-- 一级菜单图标 -->
                 <i class="el-icon-s-order"></i>
