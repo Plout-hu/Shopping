@@ -9,7 +9,7 @@
                 <el-form-item label="订单起止日期">
                     <el-date-picker v-model="time" type="daterange" align="right" unlink-panels range-separator="至"
                         start-placeholder="开始日期" end-placeholder="结束日期" :picker-options="pickerOptions"
-                        value-format="yyyy-MM-dd">
+                        value-format="yyyy-MM-dd" @change="getOrderList">
                     </el-date-picker>
                 </el-form-item>
             </el-form>

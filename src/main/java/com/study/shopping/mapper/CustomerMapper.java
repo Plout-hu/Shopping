@@ -31,7 +31,7 @@ public interface CustomerMapper {
      *
      * @param customer 需要解封的用户
      */
-    @Delete("delete from loginhistory where username=#{username}")
+    @Delete("delete from shopping.loginhistory where username=#{username}")
     void unseal(Customer customer);
 
     /**
@@ -76,4 +76,6 @@ public interface CustomerMapper {
     Customer checkUsername(String username);
     @Update("update shopping.loginhistory set consecutive_failures=#{consecutiveFailures},last_fail_time=#{lastFailTime} where username=#{username}")
     void update(Customer customer);
+    @Update("update shopping.customer set user_level=#{userLevel},consumption_amount=#{consumptionAmount} where user_id=#{userId}")
+    void updateCustomer(Customer customer);
 }

@@ -98,7 +98,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         }
 
         customer.setUserLevel(levle);
-        customerMapper.update(customer);
+        customerMapper.updateCustomer(customer);
         shoppingCartMapper.delete(list);
         return null;
     }

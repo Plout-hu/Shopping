@@ -8,11 +8,12 @@
         from shopping.historical_orders
         <where>
             <if test="start!=null and end!=null">
-                last_fail_time between #{start} and #{end}
+               order_time between #{start} and #{end}
             </if>
             <if test="username!=null and username!=''">
                 and customer_name=#{username}
             </if>
         </where>
+        order by order_time desc
     </select>
 </mapper>

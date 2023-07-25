@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface OrderMapper {
     @Insert("insert into shopping.historical_orders (customer_id, customer_name, goods_id, goods_name, price, " +
-            "goods_number, order_time) VALUES (#{customerId},#{customerName},#{goodsId},#{goodsName},#{price},#{number},#{orderTime})")
+            "goods_number, order_time) VALUES (#{customerId},#{customerName},#{goodsId},#{goodsName},#{price},#{goodsNumber},#{orderTime})")
     void add(Order order);
 
     List<Order> list(String username, LocalDate start, LocalDate end);
