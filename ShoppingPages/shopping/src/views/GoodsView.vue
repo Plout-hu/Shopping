@@ -52,7 +52,7 @@
                 <el-table-column align="center" v-if="this.power == 1" label="进货价格" prop="buyingPrice"></el-table-column>
                 <el-table-column align="center" label="售价" prop="price"></el-table-column>
                 <el-table-column align="center" label="库存" prop="inventory"></el-table-column>
-                <el-table-column align="center" label="选购数量">
+                <el-table-column align="center" label="选购数量" v-if="this.power==0">
                     <template slot-scope="scope">
                         <el-input-number v-model="pickNumber[scope.row.goodsId]" @change="handleChange" :min="0"
                             :max="scope.row.inventory" label="描述文字" size="mini"></el-input-number>
@@ -389,6 +389,8 @@ export default {
                 return
             }
             this.addGoodsInform = res.data;
+            this.addGoodsInform.type=this.addGoodsInform.type.toString();
+            this.addGoodsInform.produceDate=new Date(this.addGoodsInform.produceDate[0],this.addGoodsInform.produceDate[1]-1,this.addGoodsInform.produceDate[2]);
             this.editGoodsVisible = true;
         },
         editCanceled() {

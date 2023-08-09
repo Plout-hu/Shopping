@@ -33,7 +33,8 @@ export default {
                 new2: ""
             },
             loginForm: {
-                username: "",
+                username:"",
+                userId: "",
                 password: ""
             },
             passwordRules: {
@@ -53,7 +54,7 @@ export default {
             }
         }
     },
-    props: ["username"],
+    props: ["username","userId"],
     methods: {
         validatePassword(rule, value, callback) {
             const regex = /^(?![a-z]+$)(?![A-Z]+$)(?![\W_]+$)(?![0-9]+$)[a-zA-Z0-9\W_]{8,16}$/;
@@ -75,7 +76,7 @@ export default {
             this.$message("已取消！");
         },
         async checkAndReset() {
-            this.loginForm.username=this.username;
+            this.loginForm.username = this.username;
             this.loginForm.password = this.passwordForm.original;
             this.$refs.passwordRef.validate(async valid => {
                 if (!valid) { this.$message.error("表达输入不合法，请重新输入"); return }
@@ -89,23 +90,24 @@ export default {
                         type: 'warning'
                     }).then(async () => {
                         this.loginForm.password = this.passwordForm.new1;
+                        this.loginForm.userId=this.userId;
+                        console.log(this.loginForm)
                         const { data: result } = await this.$http.put('/customer/resetPassword', this.loginForm);
                         if (result.code === 1) {
-                            this.$message({
-                                type: 'success',
-                                message: '修改密码成功'
-                            });
+                            this.$message.success("修改密码成功");
                         } else {
                             this.$message({
                                 type: "error",
                                 message: "修改密码失败"
                             })
                         }
+                        this.$refs.passwordRef.resetFields();
                     }).catch(() => {
                         this.$message({
                             type: 'info',
                             message: '已取消修改密码'
                         });
+                        this.$refs.passwordRef.resetFields();
                     });
                 } else {
                     this.$message({
@@ -114,7 +116,6 @@ export default {
                     })
                 }
             })
-            this.$refs.passwordRef.resetFields();
         }
     }
 }
