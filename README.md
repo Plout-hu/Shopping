@@ -1,4 +1,5 @@
 # 模拟电商购物平台
+<div style="color:red; background-color:lightpink; padding:10px;">[注]:该项目是基于springboot3.1.1开发，需要使用Java JDK17及其以上版本才能运行</div>
 ## 主要实现的功能
 
 ### 1、通过密码登录

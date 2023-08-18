@@ -83,7 +83,7 @@ public class CustomerServiceImpl implements CustomerService {
             loginHistory.setConsecutiveFailures(loginHistory.getConsecutiveFailures() + 1);
             LocalDateTime now = LocalDateTime.now();
             loginHistory.setLastFailTime(now);
-            customerMapper.update(customer);
+            customerMapper.update(loginHistory);
         }
     }
 
