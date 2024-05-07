@@ -1,53 +1,46 @@
 # 模拟电商购物平台
 <div style="color:red; background-color:lightpink; padding:10px;">[注]:该项目是基于springboot3.1.1开发，需要使用Java JDK17及其以上版本才能运行</div>
+运行指南：
+1、首先运行./SQL中的SQL文件建立数据库，并在./src/resources/application.yml中更改数据库连接的账号何密码信息
+2、将本项目clone后通过运行./src/main/java/com/study/shopping/ShopppingApplication.java运行后端程序
+3、将./ShoppingPages/shopping打开后在有node的环境下通过npm run server即可开启前端页面
+4、通过localhost:90即可访问前端页面
 ## 主要实现的功能
 
 ### 1、通过密码登录
-
-![image-20230724235739614](https://github.com/Plout-hu/Shopping/assets/96678139/3d47f938-3d74-4535-9269-04401782ab9d)
-
+![image](https://github.com/Plout-hu/Shopping/assets/96678139/953e9ba9-9bd3-43c8-b7cb-8117ebdbdabf)
 
 ### 2.忘记密码及注册新用户
-![image-20230725143632392](https://github.com/Plout-hu/Shopping/assets/96678139/6f56d869-c355-4de5-9472-deb6f131258d)
+![image](https://github.com/Plout-hu/Shopping/assets/96678139/3f4ea60a-fdab-4b37-98b0-ff74d5f6f0d9)
+![image](https://github.com/Plout-hu/Shopping/assets/96678139/b8acd9b1-abcd-4824-970f-7316fbb1688b)
 
-### 2.修改密码及注册新用户
-![image-20230725143524735](https://github.com/Plout-hu/Shopping/assets/96678139/cb54753d-6a97-48b0-b660-8b49d4b4b8e1)
 
 ### 3、修改密码
 
-### ![image-20230725143802487](./ShoppingPages/shopping/src/assets/image-20230725143802487.png)
+![image](https://github.com/Plout-hu/Shopping/assets/96678139/c0d7e32e-eb4f-4ed3-ae15-57c59c0d04a5)
+
 
 ### 4、显示商品列表及购物
-
-![image-20230725150337882](./ShoppingPages/shopping/src/assets/image-20230725150337882.png)
-
-![image-20230725150538816](./ShoppingPages/shopping/src/assets/image-20230725150538816.png)
-
-### 5、显示历史的订单
-
-![image-20230725152046115](./ShoppingPages/shopping/src/assets/image-20230725152046115.png)
-=======
-![image-20230725143802487](https://github.com/Plout-hu/Shopping/assets/96678139/0b42beb6-4f39-4512-b395-f94afe09e46e)
-
-### 4、显示商品列表及购物
-
-![image-20230725150337882](https://github.com/Plout-hu/Shopping/assets/96678139/74dde2d3-9be3-43ae-9c91-fd660ec39d2d)
-
-![image-20230725150538816](https://github.com/Plout-hu/Shopping/assets/96678139/ba8d1502-f852-4672-9ae9-42446f1413cc)
+![image](https://github.com/Plout-hu/Shopping/assets/96678139/5cce5a27-6cb2-4bcc-aaa4-66903c64be5e)
+![image](https://github.com/Plout-hu/Shopping/assets/96678139/ce944f58-95f4-44a0-94a6-f86fd0b032c9)
 
 
 ### 5、显示历史的订单
 
-![image-20230725152046115](https://github.com/Plout-hu/Shopping/assets/96678139/3fd88320-330f-49a0-af6e-72ebf4050e7c)
+![image](https://github.com/Plout-hu/Shopping/assets/96678139/3a68805b-2df4-44fd-8c6b-87ae6649e240)
+
 
 ### 6、显示用户列表（需要以管理员账户登录）
 
-![image](https://github.com/Plout-hu/Shopping/assets/96678139/360ba6bc-a8fe-4c02-a0f1-44a676a8e486)
+![image](https://github.com/Plout-hu/Shopping/assets/96678139/302e9e98-a25f-4648-b24c-e86a13ede30f)
 
-### 6、添加客户
 
-![image](https://github.com/Plout-hu/Shopping/assets/96678139/dd0c0d31-f637-4ff3-9c94-2f0fe715b909)
+### 7、添加客户
 
-### 7、添加商品
+![image](https://github.com/Plout-hu/Shopping/assets/96678139/15efbfca-a5cb-4052-88c3-1d3dbdeba7e3)
 
-![image](https://github.com/Plout-hu/Shopping/assets/96678139/fde67f3f-8fa0-492f-ae66-93bcd57ca5de)
+
+### 8、添加商品
+
+![image](https://github.com/Plout-hu/Shopping/assets/96678139/e380b566-7166-4b13-ba50-3bc8cf89135d)
+
