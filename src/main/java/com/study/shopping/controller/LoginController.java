@@ -1,11 +1,10 @@
 package com.study.shopping.controller;
 
 import com.study.shopping.pojo.Customer;
-import com.study.shopping.pojo.LoginHistory;
 import com.study.shopping.pojo.Result;
 import com.study.shopping.service.CustomerService;
+import com.study.shopping.service.VerificationCodeService;
 import com.study.shopping.utils.JwtUtils;
-import com.study.shopping.utils.MD5Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,12 +21,13 @@ import java.util.Map;
 public class LoginController {
     @Autowired
     private CustomerService customerService;
-
+    @Autowired
+    VerificationCodeService verificationCodeService;
     /**
      * 通过用户名和密码登录
      *
-     * @param customer
-     * @return
+     * @param customer 登录用户信息
+     * @return 登录是否成功
      */
     @PostMapping("/login")
     public Result login(@RequestBody Customer customer) {
@@ -65,8 +63,12 @@ public class LoginController {
     @PostMapping("/checkUsername")
     public Result checkUsername(@RequestBody Customer customer) {
         log.info("验证用户名：{}", customer);
-        Customer customer1 = customerService.checkUsername(customer.getUsername());
+        Customer customer1=customerService.getById(customer.getUserId());
         if (customer1 == null) {
+            boolean success= verificationCodeService.sendEmail(customer);
+            if(!success){
+                return Result.error("发送邮件失败");
+            }
             return Result.success();
         } else {
             return Result.error("该用户名已经存在");

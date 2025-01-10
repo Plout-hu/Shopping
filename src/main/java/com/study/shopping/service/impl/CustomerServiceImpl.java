@@ -3,6 +3,7 @@ package com.study.shopping.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.study.shopping.mapper.CustomerMapper;
+import com.study.shopping.mapper.VerificationCodeMapper;
 import com.study.shopping.pojo.Customer;
 import com.study.shopping.pojo.LoginHistory;
 import com.study.shopping.pojo.PageBean;
@@ -18,19 +19,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
-import static com.study.shopping.utils.JwtUtils.parseJWT;
-
 @Service
 @Slf4j
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerMapper customerMapper;
+    @Autowired
+    private VerificationCodeMapper verificationCodeMapper;
 
     /**
      * 用户登录操作
      *
-     * @param customer
-     * @return
+     * @param customer 用户信息
+     * @return 返回查询到地用户信息
      */
     @Override
     public Customer login(Customer customer) {
@@ -41,7 +42,7 @@ public class CustomerServiceImpl implements CustomerService {
     /**
      * 查询用户是否被封禁
      *
-     * @return
+     * @return 返回是否被封禁
      */
     @Override
     public boolean checkUnseal(Customer customer) {
@@ -57,7 +58,7 @@ public class CustomerServiceImpl implements CustomerService {
     /**
      * 解封用户
      *
-     * @param customer
+     * @param customer 需要解封地用户信息
      */
     @Override
     public void unseal(Customer customer) {
@@ -67,7 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
     /**
      * 密码错误时。更新密码错误次数
      *
-     * @param customer
+     * @param customer 更改错误密码登录次数
      */
     @Override
     public void addFailLoginTimes(Customer customer) {
@@ -79,7 +80,7 @@ public class CustomerServiceImpl implements CustomerService {
             LocalDateTime now = LocalDateTime.now();
             loginHistory.setLastFailTime(now);
             customerMapper.addHistory(loginHistory);
-        }else {
+        } else {
             loginHistory.setConsecutiveFailures(loginHistory.getConsecutiveFailures() + 1);
             LocalDateTime now = LocalDateTime.now();
             loginHistory.setLastFailTime(now);
@@ -161,16 +162,17 @@ public class CustomerServiceImpl implements CustomerService {
         customerMapper.changePassword(customer);
     }
 
-    @Override
-    public Customer checkUsername(String username) {
-        return customerMapper.checkUsername(username);
-    }
+
 
     @Override
     public void register(Customer customer) {
         customer.setRegisterTime(LocalDateTime.now());
-        customer.setPower(0);
         customer.setUserLevel(0);
         customerMapper.save(customer);
+    }
+
+    @Override
+    public Customer getByUsername(String username) {
+        return customerMapper.getByUserName(username);
     }
 }

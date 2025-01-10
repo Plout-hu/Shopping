@@ -12,6 +12,7 @@ public class Goods {
     private int goodsId;
     private String goodsName;
     private String producer;
+    private String picture;
     private LocalDate produceDate;
     private int type;
     private float buyingPrice;

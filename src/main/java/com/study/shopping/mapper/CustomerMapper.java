@@ -72,10 +72,10 @@ public interface CustomerMapper {
     Customer checkEmail(Customer customer);
     @Update("update shopping.customer set password=MD5(#{password}) where username=#{username}")
     void changePassword(Customer customer);
-    @Select("select * from shopping.customer where username=#{username}")
-    Customer checkUsername(String username);
     @Update("update shopping.loginhistory set consecutive_failures=#{consecutiveFailures},last_fail_time=#{lastFailTime} where username=#{username}")
     void update(LoginHistory loginHistory);
     @Update("update shopping.customer set user_level=#{userLevel},consumption_amount=#{consumptionAmount} where user_id=#{userId}")
     void updateCustomer(Customer customer);
+    @Select("select * from shopping.customer where username=#{username}")
+    Customer getByUserName(String username);
 }

@@ -18,4 +18,6 @@ public class Customer {
     private String email;
     private String password;
     private int power;
+    private String code;
+    private String key;
 }

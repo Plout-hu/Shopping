@@ -28,8 +28,8 @@ public interface GoodsMapper {
      * 添加商品
      * @param goods 需要添加的商品信息
      */
-    @Insert("insert into shopping.goods (goods_name, producer, produce_date, type, buying_price, price,inventory) VALUES " +
-            "(#{goodsName},#{producer},#{produceDate},#{type},#{buyingPrice},#{price},#{inventory})")
+    @Insert("insert into shopping.goods (goods_name, producer, produce_date, type, buying_price, price,inventory,picture) VALUES " +
+            "(#{goodsName},#{producer},#{produceDate},#{type},#{buyingPrice},#{price},#{inventory},#{picture})")
     void add(Goods goods);
 
     /**

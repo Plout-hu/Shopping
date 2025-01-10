@@ -3,12 +3,13 @@ package com.study.shopping.controller;
 import com.study.shopping.pojo.Customer;
 import com.study.shopping.pojo.PageBean;
 import com.study.shopping.pojo.Result;
+import com.study.shopping.pojo.VerificationCode;
 import com.study.shopping.service.CustomerService;
+import com.study.shopping.service.VerificationCodeService;
+import com.study.shopping.utils.Constant;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -23,7 +24,8 @@ import java.util.Map;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
-
+    @Autowired
+    private VerificationCodeService verificationCodeService;
 
     /**
      * 查询客户
@@ -99,16 +101,33 @@ public class CustomerController {
     @PutMapping("/forgetPassWord/{checkCode}")
     public Result forgetPassword(@RequestBody Customer customer,@PathVariable String checkCode){
         log.info("忘记密码：{}，111{}",customer,checkCode);
-        if (checkCode.equals("h3E6b")){
+        VerificationCode code = verificationCodeService.getCode(customer);
+        if (checkCode.toLowerCase().equals(code.getCode().toLowerCase())){
+            if(code.getExpireTime().isBefore(LocalDateTime.now())){
+                return Result.error("验证码已过期");
+            }
             customerService.changePassWord(customer);
             return Result.success();
         }
         return Result.error("验证码错误");
     }
+    @GetMapping("/getByUsername/{username}")
+    public Result getByUserId(@PathVariable String username){
+        log.info("根据用户名查询用户：{}",username);
+        Customer customer=customerService.getByUsername(username);
+        return Result.success(customer==null);
+    }
     @PostMapping("/register/{checkCode}")
     public Result register(@RequestBody Customer customer,@PathVariable String checkCode){
         log.info("注册用户:{},{}",customer,checkCode);
-        if (checkCode.equals("h3E6b")){
+        if(customer.getPower()==1&&!customer.getKey().equals(Constant.REGISTER_ADMIN_KEY)){
+            return Result.error("管理员注册密钥错误，注册失败");
+        }
+        VerificationCode code = verificationCodeService.getCode(customer);
+        if (checkCode.toLowerCase().equals(code.getCode().toLowerCase())){
+            if(code.getExpireTime().isBefore(LocalDateTime.now())){
+                return Result.error("验证码已过期");
+            }
             customerService.register(customer);
             return Result.success();
         }
