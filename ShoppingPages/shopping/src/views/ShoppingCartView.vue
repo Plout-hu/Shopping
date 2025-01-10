@@ -108,7 +108,7 @@ export default {
                     this.$message.error("支付失败")
                 }
             });
-            
+
         },
         async getOrderList() {
             const { data: res } = await this.$http.get("/shoppingcart")
