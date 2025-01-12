@@ -3,7 +3,7 @@
 
     <router-view></router-view>
     <h1 v-if="power == 1">欢迎您进入后台管理系统</h1>
-    <h1 v-if="power == 0">欢迎您进入云大文创购物系统</h1>
+    <h1 v-if="power == 0">欢迎您进入易购之家购物系统</h1>
     <!-- 内容区域 -->
     <!-- <img src="../assets/src=http___p4.itc.cn_q_70_images01_20210506_628477c0733b44ac898ed640b2e473c1.jpeg&refer=http___p4.itc.webp" alt class="tupian-img" /> -->
   </div>

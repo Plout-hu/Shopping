@@ -96,10 +96,12 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         } else if (customer.getConsumptionAmount() > 1000) {
             levle = 2;
         }
-
+        System.out.println(list);
         customer.setUserLevel(levle);
         customerMapper.updateCustomer(customer);
-        shoppingCartMapper.delete(list);
+        if (list.size() > 0) {
+            shoppingCartMapper.delete(list);
+        }
         return null;
     }
 

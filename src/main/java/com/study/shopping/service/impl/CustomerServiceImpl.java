@@ -8,7 +8,10 @@ import com.study.shopping.pojo.Customer;
 import com.study.shopping.pojo.LoginHistory;
 import com.study.shopping.pojo.PageBean;
 import com.study.shopping.service.CustomerService;
+import com.study.shopping.service.VerificationCodeService;
+import com.study.shopping.utils.Constant;
 import com.study.shopping.utils.JwtUtils;
+import com.study.shopping.utils.MD5Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerMapper customerMapper;
     @Autowired
     private VerificationCodeMapper verificationCodeMapper;
+    @Autowired
+    private VerificationCodeService verificationCodeService;
 
     /**
      * 用户登录操作
@@ -35,7 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
      */
     @Override
     public Customer login(Customer customer) {
-
+        customer.setPassword(MD5Utils.MD5Lower(customer.getPassword(), Constant.ENCODING_SALT));
         return customerMapper.getByUsernameAndPassWord(customer);
     }
 
@@ -149,25 +154,28 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void resetPassword(Customer customer) {
+        customer.setPassword(MD5Utils.MD5Lower("12345678", Constant.ENCODING_SALT));
         customerMapper.resetPassword(customer);
     }
 
     @Override
     public Customer checkEmail(Customer customer) {
+        verificationCodeService.sendEmail(customer);
         return customerMapper.checkEmail(customer);
     }
 
     @Override
     public void changePassWord(Customer customer) {
+        customer.setPassword(MD5Utils.MD5Lower(customer.getPassword(), Constant.ENCODING_SALT));
         customerMapper.changePassword(customer);
     }
-
 
 
     @Override
     public void register(Customer customer) {
         customer.setRegisterTime(LocalDateTime.now());
         customer.setUserLevel(0);
+        customer.setPassword(MD5Utils.MD5Lower(customer.getPassword(), Constant.ENCODING_SALT));
         customerMapper.save(customer);
     }
 

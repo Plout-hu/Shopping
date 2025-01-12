@@ -63,7 +63,7 @@ public class LoginController {
     @PostMapping("/checkUsername")
     public Result checkUsername(@RequestBody Customer customer) {
         log.info("验证用户名：{}", customer);
-        Customer customer1=customerService.getById(customer.getUserId());
+        Customer customer1=customerService.getByUsername(customer.getUsername());
         if (customer1 == null) {
             boolean success= verificationCodeService.sendEmail(customer);
             if(!success){

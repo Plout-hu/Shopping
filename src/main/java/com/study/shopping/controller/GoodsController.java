@@ -66,7 +66,7 @@ public class GoodsController {
      */
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id){
-        log.info("通过Id查询用户:{}",id);
+        log.info("通过Id查询商品:{}",id);
         Goods goods= goodsService.getById(id);
         return Result.success(goods);
     }

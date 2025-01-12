@@ -295,7 +295,8 @@ export default {
       },
       changePassword: {
         username: '',
-        password: ''
+        password: '',
+        email: ''
       },
       registerForm: {
         username: '',
@@ -379,6 +380,7 @@ export default {
         if (valid && this.checkCode !== null && this.checkCode !== '') {
           this.changePassword.username = this.forgetPassword.username
           this.changePassword.password = this.forgetPassword.newPassword1
+          this.changePassword.email=this.forgetPassword.email
           const { data: res } = await this.$http.put('/customer/forgetPassWord/' + this.forgetPassword.checkCode, this.changePassword)
           if (res.code === 1) {
             this.$message.success('修改密码成功')

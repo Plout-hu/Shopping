@@ -102,6 +102,9 @@ public class CustomerController {
     public Result forgetPassword(@RequestBody Customer customer,@PathVariable String checkCode){
         log.info("忘记密码：{}，111{}",customer,checkCode);
         VerificationCode code = verificationCodeService.getCode(customer);
+        if (code == null) {
+            return Result.error("验证码错误");
+        }
         if (checkCode.toLowerCase().equals(code.getCode().toLowerCase())){
             if(code.getExpireTime().isBefore(LocalDateTime.now())){
                 return Result.error("验证码已过期");
@@ -124,6 +127,9 @@ public class CustomerController {
             return Result.error("管理员注册密钥错误，注册失败");
         }
         VerificationCode code = verificationCodeService.getCode(customer);
+        if(code==null){
+            return Result.error("验证码错误");
+        }
         if (checkCode.toLowerCase().equals(code.getCode().toLowerCase())){
             if(code.getExpireTime().isBefore(LocalDateTime.now())){
                 return Result.error("验证码已过期");

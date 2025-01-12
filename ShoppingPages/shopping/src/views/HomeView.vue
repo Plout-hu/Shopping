@@ -1,7 +1,7 @@
 <template>
     <el-container class="home-container">
         <el-header>
-            <span class="title">云大文创购物平台</span>
+            <span class="title">易购之家购物平台</span>
             <el-button type="info" @click="logout">退出</el-button>
         </el-header>
         <el-container>

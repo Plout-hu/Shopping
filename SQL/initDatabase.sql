@@ -30,6 +30,8 @@ create table if not exists goods
     price        float       not null comment '售价',
     inventory    int default 0 comment '库存'
 );
+ALTER TABLE goods MODIFY picture VARCHAR(2048);
+ALTER TABLE goods MODIFY producer VARCHAR(50);
 drop table if exists historical_orders;
 create table if not exists historical_orders
 (
